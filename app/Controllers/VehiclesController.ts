@@ -17,6 +17,6 @@ export default class VehiclesController {
       },
     ]
 
-    return vehicles
+    return ctx.response.status(200).json(vehicles)
   }
 }

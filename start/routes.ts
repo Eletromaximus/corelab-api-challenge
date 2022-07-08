@@ -19,5 +19,11 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import VehiclesController from 'App/Controllers/VehiclesController'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-Route.get('/vehicles', 'VehiclesController.index')
+const vehiclesController = new VehiclesController()
+
+Route.get('/vehicles', async (ctx: HttpContextContract) => {
+  vehiclesController.index(ctx)
+})

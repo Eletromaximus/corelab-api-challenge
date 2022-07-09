@@ -1,4 +1,5 @@
-export interface IVehicle {
+export interface IVehicleDTO {
+  id: string
   name: string
   description: string
   plate: string
@@ -6,4 +7,5 @@ export interface IVehicle {
   year: number
   color: string
   price: number
+  createdAt: Date
 }

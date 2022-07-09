@@ -21,9 +21,33 @@
 import Route from '@ioc:Adonis/Core/Route'
 import VehiclesController from 'App/Controllers/VehiclesController'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
 const vehiclesController = new VehiclesController()
 
 Route.get('/vehicles', async (ctx: HttpContextContract) => {
-  vehiclesController.index(ctx)
+  await vehiclesController.index(ctx)
+})
+
+Route.post('/vehicle', async (ctx: HttpContextContract) => {
+  try {
+    const payload = await ctx.request.validate({
+      schema: schema.create({
+        name: schema.string([rules.required(), rules.maxLength(20)]),
+        description: schema.string([rules.required(), rules.maxLength(250)]),
+        plate: schema.string([rules.required(), rules.maxLength(8), rules.minLength(8)]),
+        isFavorite: schema.boolean([rules.required()]),
+        year: schema.number([rules.required()]),
+        color: schema.string([rules.required(), rules.maxLength(20)]),
+        price: schema.number([rules.required()]),
+      }),
+    })
+
+    const id = await vehiclesController.createVehicle(payload)
+
+    return ctx.response.status(200).json(id)
+  } catch (error: any) {
+    console.log(error)
+    ctx.response.badRequest(error.messages)
+  }
 })

@@ -2,6 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { IVehicle } from 'App/Types/Vehicle'
 import Database from '@ioc:Adonis/Lucid/Database'
 import { IVehicleDTO } from 'App/Types/VehicleDTO'
+import { randomUUID as uuid } from 'crypto'
 
 export default class VehiclesController {
   public async index({ response }: HttpContextContract) {
@@ -25,6 +26,7 @@ export default class VehiclesController {
   public async createVehicle(car: IVehicle): Promise<any> {
     const postId: any = await Database.table('cars')
       .insert({
+        id: uuid(),
         name: car.name,
         description: car.description,
         plate: car.plate,

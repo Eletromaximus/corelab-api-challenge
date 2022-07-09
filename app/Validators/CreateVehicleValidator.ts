@@ -1,23 +1,25 @@
-import { schema, rules } from '@ioc:Adonis/Core/Validator'
+import { schema, rules, CustomMessages } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 export default class CreateVehicleValidator {
   public async validateVehicle({ request }: HttpContextContract) {
     const payload = await request.validate({
       schema: schema.create({
-        name: schema.string([rules.required(), rules.maxLength(20)]),
-        description: schema.string([rules.required(), rules.maxLength(250)]),
-        plate: schema.string([rules.required(), rules.maxLength(8), rules.minLength(8)]),
+        name: schema.string([rules.required()]),
+        description: schema.string([rules.required()]),
+        plate: schema.string([rules.required()]),
         isFavorite: schema.boolean([rules.required()]),
-        year: schema.number([rules.required(), rules.minLength(4), rules.maxLength(4)]),
-        color: schema.string([rules.required(), rules.maxLength(20)]),
-        price: schema.number([rules.required(), rules.maxLength(20)]),
+        year: schema.number([rules.required()]),
+        color: schema.string([rules.required()]),
+        price: schema.number([rules.required()]),
       }),
+
+      messages: this.messages,
     })
 
     return payload
   }
 
-  public messages = {
-    require: 'The {{ field }} is requered to create a new accounts',
+  public messages: CustomMessages = {
+    required: 'The {{ field }} is required to create a new account',
   }
 }

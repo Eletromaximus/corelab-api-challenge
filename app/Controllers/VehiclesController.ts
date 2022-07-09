@@ -1,7 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { IVehicle } from 'App/Types/Vehicle'
 import Database from '@ioc:Adonis/Lucid/Database'
-import { IVehicleDTO } from 'App/Types/VehicleDTO'
 import { randomUUID as uuid } from 'crypto'
 
 export default class VehiclesController {
@@ -37,5 +36,11 @@ export default class VehiclesController {
       .returning('id')
 
     return postId
+  }
+
+  public async findVehicle(id: string) {
+    const car = await Database.from('cars').where('id', String(id))
+
+    return car
   }
 }

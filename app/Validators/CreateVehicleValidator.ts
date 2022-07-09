@@ -20,6 +20,6 @@ export default class CreateVehicleValidator {
   }
 
   public messages: CustomMessages = {
-    required: 'The {{ field }} is required to create a new account',
+    required: 'The {{ field }} is required to create a new car',
   }
 }

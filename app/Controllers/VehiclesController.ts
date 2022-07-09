@@ -6,19 +6,16 @@ import { randomUUID as uuid } from 'crypto'
 
 export default class VehiclesController {
   public async index({ response }: HttpContextContract) {
-    const vehicles: IVehicleDTO[] = [
-      {
-        id: 'dfasdfasdfas',
-        name: 'First Vehicle',
-        description: 'This is a description of first vehicle',
-        plate: 'DDT-0012',
-        isFavorite: false,
-        year: 2018,
-        color: '#ff00ff',
-        price: 22000,
-        createdAt: new Date(),
-      },
-    ]
+    const vehicles = await Database.from('cars').select(
+      'id',
+      'name',
+      'description',
+      'plate',
+      'isFavorite',
+      'color',
+      'year',
+      'price'
+    )
 
     return response.status(200).json(vehicles)
   }
@@ -34,6 +31,8 @@ export default class VehiclesController {
         year: car.year,
         color: car.color,
         price: car.price,
+        created_at: new Date(),
+        updated_at: new Date(),
       })
       .returning('id')
 

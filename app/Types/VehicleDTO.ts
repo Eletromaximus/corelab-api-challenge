@@ -2,7 +2,6 @@ export interface IVehicleDTO {
   id: string
   name: string
   description: string
-  plate: string
   isFavorite: boolean
   year: number
   color: string

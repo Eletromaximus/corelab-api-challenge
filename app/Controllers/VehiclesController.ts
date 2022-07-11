@@ -1,22 +1,13 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { IVehicle } from 'App/Types/Vehicle'
 import Database from '@ioc:Adonis/Lucid/Database'
 import { randomUUID as uuid } from 'crypto'
 
 export default class VehiclesController {
-  public async index({ response }: HttpContextContract) {
-    const vehicles = await Database.from('cars').select(
-      'id',
-      'name',
-      'description',
-      'plate',
-      'isFavorite',
-      'color',
-      'year',
-      'price'
-    )
+  public async index(page: number) {
+    const _limit = 15
+    const vehicles = await Database.from('cars').paginate(page, _limit)
 
-    return response.status(200).json(vehicles)
+    return vehicles.toJSON()
   }
 
   public async createVehicle(car: IVehicle): Promise<any> {
@@ -25,7 +16,6 @@ export default class VehiclesController {
         id: uuid(),
         name: car.name,
         description: car.description,
-        plate: car.plate,
         isFavorite: car.isFavorite,
         year: car.year,
         color: car.color,

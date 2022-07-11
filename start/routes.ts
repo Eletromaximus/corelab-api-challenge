@@ -27,12 +27,14 @@ const vehiclesController = new VehiclesController()
 const createVehicleValidator = new CreateVehicleValidator()
 
 Route.get('/vehicles', async (ctx: HttpContextContract) => {
-  await vehiclesController.index(ctx)
+  const { page } = ctx.request.qs()
+  const vehicles = await vehiclesController.index(Number(page) || 1)
+  return ctx.response.status(200).json(vehicles)
 })
 
 Route.get('/vehicle/:id', async (ctx: HttpContextContract) => {
   const id = ctx.request.param('id')
-  const car = await vehiclesController.findVehicle(id)
+  const car = await vehiclesController.findVehicle(id || 1)
 
   return car
 })
@@ -45,6 +47,7 @@ Route.post('/vehicle', async (ctx: HttpContextContract) => {
 
     return ctx.response.status(200).json(id)
   } catch (error: any) {
+    console.log(error)
     ctx.response.badRequest(error.messages)
   }
 })

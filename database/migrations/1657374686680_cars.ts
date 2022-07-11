@@ -7,7 +7,6 @@ export default class extends BaseSchema {
       table.uuid('id')
       table.string('name')
       table.string('description')
-      table.string('plate')
       table.boolean('isFavorite')
       table.integer('year')
       table.string('color')

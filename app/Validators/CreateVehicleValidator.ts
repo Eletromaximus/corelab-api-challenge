@@ -6,7 +6,6 @@ export default class CreateVehicleValidator {
       schema: schema.create({
         name: schema.string([rules.required()]),
         description: schema.string([rules.required()]),
-        plate: schema.string([rules.required()]),
         isFavorite: schema.boolean([rules.required()]),
         year: schema.number([rules.required()]),
         color: schema.string([rules.required()]),

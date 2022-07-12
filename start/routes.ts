@@ -28,6 +28,7 @@ const createVehicleValidator = new CreateVehicleValidator()
 
 Route.get('/vehicles', async (ctx: HttpContextContract) => {
   const { page } = ctx.request.qs()
+  console.log(page)
   const vehicles = await vehiclesController.index(Number(page) || 1)
   return ctx.response.status(200).json(vehicles)
 })

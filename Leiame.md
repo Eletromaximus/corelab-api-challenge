@@ -1,5 +1,7 @@
 ## Desafio Corelab
 
+## Status do Projeto: Pausado
+
 Bem-vindos ao **Desafio Corelab**! Aqui você vai nos mostrar o quão incrível você é em programação.
 Para fazer isso, nós preparamos dois repositórios que você vai fazer o fork e programar.
 
